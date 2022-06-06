@@ -43,6 +43,10 @@ def display_menu():
                 listSplit()
                 kembalikan_buku()
                 keluar()
+            elif(menu==4):
+                listSplit()
+                buku_hilang()
+                keluar()                
             elif(menu==5):
                 print("Terimakasih telah menggunakan sistem perpustakaan Teknik UNS")
                 exit()
@@ -210,5 +214,42 @@ def kembalikan_buku():
 
     #koding belum selesai
 
+def mengganti_buku():
+    name=input("Masukkan nama peminjam: ")
+    a="Pinjaman-"+name+".txt"
+    try:
+        with open(a,"r") as f:
+            lines=f.readlines()
+            lines=[a.strip("Rp") for a in lines]
+
+        with open(a,"r") as f:
+            data=f.read()
+            print(data)
+    except:
+        print("Nama peminjam salah")
+        buku_hilang()
+
+    with open("stock.txt", "a+") as f:
+        judul = input("judul = ")
+        pengarang = input("pengarang = ")
+        stok = input("stok = ")
+        harga = input("harga = Rp ")   
+        pembatas = ","
+        f.write('\n' + judul + pembatas + pengarang + pembatas + stok + pembatas + 'Rp' + harga)
+
+def buku_hilang():
+    print("SESUAI DENGAN KETENTUAN YANG BERLAKU")
+    print("MAKA AKAN DIKENAKAN DENDA BERUPA")
+    print("--------------------------------------------")
+    print("1. MEMBELI BUKU DENGAN JUDUL YANG SAMA")
+    print("2. MENGGANTI DENGAN NOMINAL BUKU YANG HILANG")
+    print("--------------------------------------------")
+    menuhilang=input("Pilih Menu ! (1/2) : ")
+    if (menuhilang==1):
+        mengganti_buku()
+
+        #problem
+
+        #koding txt pinjam, menunjukkan buku yg dipinjam
 
 display_menu()
