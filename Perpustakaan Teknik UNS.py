@@ -39,9 +39,13 @@ def display_menu():
                 listSplit()
                 pinjamkan_buku()
                 keluar()
+            elif(menu==3):
+                listSplit()
+                kembalikan_buku()
+                keluar()
             elif(menu==5):
                 print("Terimakasih telah menggunakan sistem perpustakaan Teknik UNS")
-                break
+                exit()
             else:
                 print("Masukkan angka 1-5")
                 kembali()
@@ -113,7 +117,7 @@ def pinjamkan_buku():
                 
     t="Pinjaman-"+firstName+".txt"
     with open(t,"w+") as f:
-        f.write("               Perpustakaan HMTI  \n")
+        f.write("            Perpustakaan Teknik UNS  \n")
         f.write("                   Dipinjam oleh: "+ firstName+" "+lastName+"\n")
         f.write("    Tanggal: " + getDate()+"    Waktu:"+ getTime()+"\n\n")
         f.write("S.N. \t\t Judul buku \t      penulis \n" )
@@ -181,5 +185,65 @@ def pinjamkan_buku():
         except ValueError:
             print("")
             print("Pilih sesuai petunjuk !.")
+
+def kembalikan_buku():
+    name=input("Masukkan nama peminjam: ")
+    a="Pinjaman-"+name+".txt"
+    try:
+        with open(a,"r") as f:
+            lines=f.readlines()
+            lines=[a.strip("Rp") for a in lines]
+    
+        with open(a,"r") as f:
+            data=f.read()
+            print(data)
+    except:
+        print("Nama peminjam salah")
+        kembalikan_buku()
+
+    b="Pengembalian-"+name+".txt"
+    with open(b,"w+")as f:
+        f.write("             Perpustakaan Teknik UNS \n")
+        f.write("                   Dikembalikan oleh: "+ name+"\n")
+        f.write("    Tanggal: " + getDate()+"    Waktu:"+ getTime()+"\n\n")
+        f.write("S.N.\t\tJudul Buku\t\tTotal\n")
+
+    #koding belum selesai
+
+def mengganti_buku():
+    name=input("Masukkan nama peminjam: ")
+    a="Pinjaman-"+name+".txt"
+    try:
+        with open(a,"r") as f:
+            lines=f.readlines()
+            lines=[a.strip("Rp") for a in lines]
+
+        with open(a,"r") as f:
+            data=f.read()
+            print(data)
+    except:
+        print("Nama peminjam salah")
+        buku_hilang()
+
+    with open("stock.txt", "a+") as f:
+        judul = input("judul = ")
+        pengarang = input("pengarang = ")
+        stok = input("stok = ")
+        harga = input("harga = Rp ")   
+        pembatas = ","
+        f.write('\n' + judul + pembatas + pengarang + pembatas + stok + pembatas + 'Rp' + harga)
+
+def buku_hilang():
+    print("SESUAI DENGAN KETENTUAN YANG BERLAKU")
+    print("MAKA AKAN DIKENAKAN DENDA BERUPA")
+    print("--------------------------------------------")
+    print("1. MEMBELI BUKU DENGAN JUDUL YANG SAMA")
+    print("2. MENGGANTI DENGAN NOMINAL BUKU YANG HILANG")
+    garis()
+    menuhilang=input("Pilih Menu ! (1/2) : ")
+    if (menuhilang==1):
+        mengganti_buku()
+
+
 
 display_menu()
