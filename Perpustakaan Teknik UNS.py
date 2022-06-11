@@ -16,6 +16,7 @@ def keluar():
         print("Terimakasih telah menggunakan sistem perpustakaan Teknik UNS.")
         exit()
     else:
+        print_=("")
         display_menu()
 
 def kembali():
@@ -25,6 +26,7 @@ def kembali():
 
 def display_menu():
     while(True):
+        print("=====================================================================")
         print("Selamat Datang di Perpustakaan Teknik UNS".center(70))
         garis()
         print(" | 1 | Tampilkan Buku")
@@ -32,7 +34,7 @@ def display_menu():
         print(" | 3 | Mengembalikan Buku")  
         print(" | 4 | Menghilangkan Buku")
         print(" | 5 | Untuk Keluar")
-        garis()
+        print("=====================================================================")
         print("")
         try:
             menu=int(input("pilih menu 1-5: "))
@@ -112,6 +114,15 @@ def display_buku():
 
 
 def pinjamkan_buku():
+    print("=================================================")
+    print("|-----KATEGORI BUKU-----|-----BIAYA PINJAM------|")
+    print("|===============================================|")
+    print("|--UMUM-----------------|--Rp.15000-------------|")
+    print("|--SAINS DAN MATEMATIKA-|--Rp.10000-------------|")
+    print("|--TEKNOLOGI------------|--Rp.5000--------------|")
+    print("|--LAINNYA--------------|--Rp.3000--------------|")
+    print("=================================================")
+    print("")   
     success=False
     while(True):
         firstName=input("Masukkan nama depan peminjam: ")
@@ -197,6 +208,13 @@ def pinjamkan_buku():
         except ValueError:
             print("")
             print("Pilih sesuai petunjuk !.")
+    
+    print("------------MASA PEMINJAMAN BUKU ADALAH SELAMA 2 BULAN-------------")
+    print("---------JIKA TERLAMBAT MENGEMBALIKAN MAKA DIKENAKAN DENDA---------")
+    print("----------------------SEBESAR RP.1000 PER HARI---------------------")
+    print("----DAN JIKA MENGHILANGKAN BUKU PINJAMAN MAKA DIKENAKAN SANGSI-----")
+
+
 
 def kembalikan_buku():
     name=input("Masukkan nama peminjam: ")
