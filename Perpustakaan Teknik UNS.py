@@ -2,11 +2,14 @@
 def garis():
     print("---------------------------------------------------------------------")
     
-garis()
-print("PERPUSTAKAAN TEKNIK UNS".center(70))
-print("JL. Ir. Sutami No. 36 Telp. 08123456789".center(70))
-garis()
-print("")
+
+def header():
+    garis()
+    print("PERPUSTAKAAN TEKNIK UNS".center(70))
+    print("JL. Ir. Sutami No. 36 Telp. 08123456789".center(70))
+    garis()
+    print("")
+
 
 def keluar():
     print("")
@@ -19,10 +22,13 @@ def keluar():
         print_=("")
         display_menu()
 
+
 def kembali():
     print("")
     input("Tekan tombol apa saja untuk kembali... : ")
+    print("")
     display_menu()
+
 
 def display_menu():
     while(True):
@@ -94,19 +100,25 @@ def listSplit():
                     harga.append(a.strip("Rp"))
                 ind+=1
 
+
 def getDate():
     import datetime
     now=datetime.datetime.now
     return str(now().date())
+
 
 def getTime():
     import datetime
     now=datetime.datetime.now
     return str(now().time())
 
+
 def display_buku():
-    print()
-    print()
+    print("==================================================")
+    print("|-----DAFTAR BUKU DI PERPUSTAKAAN TEKNIK UNS-----|")
+    print("|---(KATEGORI,JUDUL,PENULIS,STOK,BIAYA PINJAM)---|")
+    print("==================================================")
+    print("")
     with open("stock.txt","r+") as f:
         lines=f.read()
         print(lines)
@@ -136,7 +148,6 @@ def pinjamkan_buku():
         print("Masukkan huruf A-Z")
         print("")
     display_buku()
-
                 
     t="Pinjaman-"+firstName+".txt"
     with open(t,"w+") as f:
@@ -164,7 +175,7 @@ def pinjamkan_buku():
                             f.write(judul_buku[i]+","+penulis[i]+","+str(stock[i])+","+"Rp"+harga[i]+"\n")
                             continue
 
-                    #jika buku yang dipinjam lebih dari 1
+                   #lebih dari satu buku dipinjam
                     loop=True
                     count=1
                     while loop==True:
@@ -215,7 +226,6 @@ def pinjamkan_buku():
     print("----DAN JIKA MENGHILANGKAN BUKU PINJAMAN MAKA DIKENAKAN SANGSI-----")
 
 
-
 def kembalikan_buku():
     name=input("Masukkan nama peminjam: ")
     a="Pinjaman-"+name+".txt"
@@ -261,11 +271,11 @@ def kembalikan_buku():
     print("Total pembayaran: "+ "Rp"+str(total))
     with open(b,"a")as f:
         f.write("\t\t\t\t\tTotal: Rp"+ str(total))
-    
         
     with open("stock.txt","r+") as f:
             for i in range(8):
                 f.write(judul_buku[i]+","+penulis[i]+","+str(stock[i])+","+"Rp"+harga[i]+"\n")
+
 
 def mengganti_buku():
     name=input("Masukkan nama peminjam: ")
@@ -282,7 +292,6 @@ def mengganti_buku():
         print("Nama peminjam salah")
         kembali()
 
-
     b="Buku-Hilang-"+name+".txt"
     with open(b,"w+")as f:
         f.write("             Perpustakaan Teknik UNS \n")
@@ -296,7 +305,6 @@ def mengganti_buku():
                 f.write(str(i+1)+"\t\t"+judul_buku[i]+"\t\tRp"+harga[i]+"\n")
                 stock[i]=int(stock[i])+1
 
-        
     with open(b,"r") as f:
         datahilang=f.read()
         print(datahilang)
@@ -305,19 +313,19 @@ def mengganti_buku():
         for i in range(8):
             f.write(judul_buku[i]+","+penulis[i]+","+str(stock[i])+","+"Rp"+harga[i]+"\n")
 
+
 def buku_hilang():
-    print("SESUAI DENGAN KETENTUAN YANG BERLAKU")
-    print("MAKA AKAN DIKENAKAN DENDA BERUPA")
-    print("--------------------------------------------")
-    print("1. MEMBELI BUKU DENGAN JUDUL YANG SAMA")
-    print("2. MENGGANTI DENGAN NOMINAL BUKU YANG HILANG")
-    print("--------------------------------------------")
-    menuhilang=int(input("Pilih Menu ! (1/2) : "))
+    print("================================================")    
+    print("|-----SESUAI DENGAN KETENTUAN YANG BERLAKU,----|")
+    print("|-------MAKA AKAN DIKENAKAN DENDA BERUPA-------|")
+    print("|==============================================|")
+    print("|1. MEMBELI BUKU DENGAN JUDUL YANG SAMA--------|")
+    print("|2. MENGGANTI DENGAN NOMINAL BUKU YANG HILANG--|")
+    print("================================================")
+    print("")
+    menuhilang=int(input("Pilih Cara Pengembalian! (1/2) : "))
     if menuhilang == 1:
         mengganti_buku()
 
-        #problem
-
-        #koding txt pinjam, menunjukkan buku yg dipinjam
 
 display_menu()
