@@ -14,6 +14,7 @@ def header():
 def keluar():
     print("")
     keluar=input("Apakah Anda ingin keluar? (Y/T) : ")
+    print("")
     if (keluar=="Y") or (keluar=="y"):
         print("")
         print("Terimakasih telah menggunakan sistem perpustakaan Teknik UNS.")
@@ -80,10 +81,12 @@ def listSplit():
     global penulis
     global stock
     global harga
+    global kategori
     judul_buku=[]
     penulis=[]
     stock=[]
     harga=[]
+    kategori=[]
     with open("stock.txt","r+") as f:
         lines=f.readlines()
         lines=[x.strip('\n') for x in lines]
@@ -98,6 +101,8 @@ def listSplit():
                     stock.append(a)
                 elif(ind==3):
                     harga.append(a.strip("Rp"))
+                elif(ind==4):
+                    kategori.append(a)
                 ind+=1
 
 
@@ -126,6 +131,7 @@ def display_buku():
 
 
 def pinjamkan_buku():
+    print("")
     print("=================================================")
     print("|-----KATEGORI BUKU-----|-----BIAYA PINJAM------|")
     print("|===============================================|")
@@ -151,79 +157,95 @@ def pinjamkan_buku():
                 
     t="Pinjaman-"+firstName+".txt"
     with open(t,"w+") as f:
-        f.write("            Perpustakaan Teknik UNS  \n")
-        f.write("                   Dipinjam oleh: "+ firstName+" "+lastName+"\n")
-        f.write("    Tanggal: " + getDate()+"    Waktu:"+ getTime()+"\n\n")
-        f.write("S.N. \t\t Judul buku \t      penulis \n" )
+        f.write("\t\t\t  Perpustakaan Teknik UNS  \n")
+        f.write("\t\t\tDipinjam oleh: "+ firstName+" "+lastName+"\n")
+        f.write("\t\tTanggal: " + getDate()+" Waktu: "+ getTime()+"\n\n")
+        f.write("S.N.\t\t\tJudul Buku\t\t\t     Penulis \n" )
 
     while success==False:
         print("Pilih menu di bawah ini :")
-        for i in range(len(judul_buku)):
-            print("Masukkan", i, "untuk meminjam buku", judul_buku[i])
+        print("")
+        for i in range(8):
+            print("Masukkan", i, "untuk meminjam buku", judul_buku[i], "dari kategori", kategori[i])
+        print("")
     
         try:   
             a=int(input())
             try:
                 if(int(stock[a])>0):
-                    print("Buku Tersedia")
+                    print("")
+                    print("Buku Tersedia.")
+                    print("")
                     with open(t,"a") as f:
-                        f.write("1. \t\t"+ judul_buku[a]+"\t\t  "+penulis[a]+"\n")
+                        f.write("1. \t\t"+ judul_buku[a]+"\t\t"+penulis[a]+"\n")
 
                     stock[a]=int(stock[a])-1
                     with open("stock.txt","r+") as f:
                         for i in range(8):
-                            f.write(judul_buku[i]+","+penulis[i]+","+str(stock[i])+","+"Rp"+harga[i]+"\n")
+                            f.write(judul_buku[i]+","+penulis[i]+","+str(stock[i])+","+"Rp"+harga[i]+","+kategori[i]+"\n")
                             continue
 
                    #lebih dari satu buku dipinjam
                     loop=True
                     count=1
                     while loop==True:
-                        choice=str(input("Apakah ingin pinjam buku lagi ? Masukkan y jika ya dan n jika tidak."))
+                        choice=str(input('Apakah Anda berniat meminjam buku lagi?\nMasukkan "Y" jika ya dan "T" jika tidak.\n'))
+                        print("")
                         if(choice.upper()=="Y"):
                             count=count+1
-                            print("Pilih menu di bawah ini :")
-                            for i in range(len(judul_buku)):
-                                print("Masukkan", i, "untuk meminjam buku", judul_buku[i])
+                            print("Pilih menu di bawah ini : ")
+                            print("")
+                            for i in range(8):
+                                print("Masukkan", i, "untuk meminjam buku", judul_buku[i], "dari kategori", kategori[i])
+                            print("")
                             a=int(input())
                             if(int(stock[a])>0):
-                                print("Buku tersedia")
+                                print("")
+                                print("Buku tersedia.")
+                                print("")
                                 with open(t,"a") as f:
-                                    f.write(str(count) +". \t\t"+ judul_buku[a]+"\t\t  "+penulis[a]+"\n")
+                                    f.write(str(count) +". \t\t"+ judul_buku[a]+"\t\t"+penulis[a]+"\n")
 
                                 stock[a]=int(stock[a])-1
                                 with open("stock.txt","r+") as f:
                                     for i in range(8):
-                                        f.write(judul_buku[i]+","+penulis[i]+","+str(stock[i])+","+"Rp"+harga[i]+"\n")
+                                        f.write(judul_buku[i]+","+penulis[i]+","+str(stock[i])+","+"Rp"+harga[i]+","+kategori[i]+"\n")
                                         success=False
                                         continue
                             else:
                                 loop=False
                                 continue
-                        elif (choice.upper()=="N"):
-                            print ("Terimakasih telah meminjam buku. ")
+                        elif (choice.upper()=="T"):
+                            print("")
+                            print("Terimakasih telah meminjam buku.")
                             print("")
                             loop=False
                             success=True
                         else:
-                            print("Masukkan sesuai petunjuk !")
+                            print("Masukkan sesuai petunjuk!")
                         
                 else:
-                    print("Buku tidak tersedia")
+                    print("")
+                    print("Buku tidak tersedia.")
+                    print("")
                     pinjamkan_buku()
                     success=False
                     continue
             except IndexError:
                 print("")
                 print("Pilih buku sesuai nomor.")
+                print("")
         except ValueError:
             print("")
             print("Pilih sesuai petunjuk !.")
+            print("")
     
+    print("===================================================================")
     print("------------MASA PEMINJAMAN BUKU ADALAH SELAMA 2 BULAN-------------")
     print("---------JIKA TERLAMBAT MENGEMBALIKAN MAKA DIKENAKAN DENDA---------")
     print("----------------------SEBESAR RP.1000 PER HARI---------------------")
-    print("----DAN JIKA MENGHILANGKAN BUKU PINJAMAN MAKA DIKENAKAN SANGSI-----")
+    print("----DAN JIKA MENGHILANGKAN BUKU PINJAMAN MAKA DIKENAKAN SANKSI-----")
+    print("===================================================================")
 
 
 def kembalikan_buku():
@@ -274,7 +296,7 @@ def kembalikan_buku():
         
     with open("stock.txt","r+") as f:
             for i in range(8):
-                f.write(judul_buku[i]+","+penulis[i]+","+str(stock[i])+","+"Rp"+harga[i]+"\n")
+                f.write(judul_buku[i]+","+penulis[i]+","+str(stock[i])+","+"Rp"+harga[i]+","+kategori[i]+"\n")
 
 
 def mengganti_buku():
@@ -311,7 +333,7 @@ def mengganti_buku():
 
     with open("stock.txt","r+") as f:
         for i in range(8):
-            f.write(judul_buku[i]+","+penulis[i]+","+str(stock[i])+","+"Rp"+harga[i]+"\n")
+            f.write(judul_buku[i]+","+penulis[i]+","+str(stock[i])+","+"Rp"+harga[i]+","+kategori[i]+"\n")
 
 
 def buku_hilang():
