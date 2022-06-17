@@ -5,12 +5,6 @@ def garis():
     print("=====================================================================")
     
 
-def header():
-    garis()
-    print("PERPUSTAKAAN TEKNIK UNS".center(70))
-    print("JL. Ir. Sutami No. 36 Telp. 08123456789".center(70))
-    
-
 def clear_screen():
     os.system('cls' if os.name == 'nt' else 'clear')
 
@@ -49,68 +43,7 @@ def kembali():
     display_menu()
 
 
-def display_menu():
-    while(True):
-        header()
-        garis()
-        print()
-        print("Selamat Datang di Perpustakaan Teknik UNS".center(70))
-        print("")
-        print(" | 1 | Tampilkan Buku")
-        print(" | 2 | Meminjam Buku")
-        print(" | 3 | Mengembalikan Buku")  
-        print(" | 4 | Menghilangkan Buku")
-        print(" | 5 | Untuk Keluar")
-        print("")
-        garis()
-        print("")
-        try:
-            menu=int(input("Silahkan input Menu yang diinginkan (1-5): "))
-            print()
-            if(menu==1):
-                clear_screen()
-                listSplit()
-                display_buku()
-                keluar()
-            elif(menu==2):
-                clear_screen()
-                listSplit()
-                pinjamkan_buku()
-                keluar()
-            elif(menu==3):
-                clear_screen()
-                listSplit()
-                kembalikan_buku()
-                keluar()
-            elif(menu==4):
-                clear_screen()
-                listSplit()
-                buku_hilang()
-                keluar()                
-            elif(menu==5):
-                clear_screen()
-                garis()
-                print("PERPUSTAKAAN TEKNIK UNS".center(70))
-                print("JL. Ir. Sutami No. 36 Telp. 08123456789".center(70))
-                garis()
-                print("")
-                print("Terimakasih telah menggunakan sistem Perpustakaan Teknik UNS.".center(70))
-                print("")
-                garis()
-                print("")
-                input("Tekan tombol apa saja untuk keluar... : ")
-                exit()
-            else:
-                clear_screen()
-                print("Masukkan angka 1 hingga 5 untuk memilih Menu.")
-                kembali()
-        except ValueError:
-            clear_screen()
-            print("Masukkan sesuai perintah!")
-            kembali()
-
-
-def listSplit():
+def deskripsi_stock():
     global judul_buku
     global penulis
     global stock
@@ -140,16 +73,83 @@ def listSplit():
                 ind+=1
 
 
-def getDate():
+def tanggal():
     import datetime
     now=datetime.datetime.now
     return str(now().date())
 
 
-def getTime():
+def waktu():
     import datetime
     now=datetime.datetime.now
     return str(now().time())
+
+
+def header():
+    garis()
+    print("PERPUSTAKAAN TEKNIK UNS".center(70))
+    print("JL. Ir. Sutami No. 36 Telp. 08123456789".center(70))
+    
+
+def display_menu():
+    while(True):
+        header()
+        garis()
+        print()
+        print("Selamat Datang di Perpustakaan Teknik UNS".center(70))
+        print("")
+        print(" | 1 | Tampilkan Buku")
+        print(" | 2 | Meminjam Buku")
+        print(" | 3 | Mengembalikan Buku")  
+        print(" | 4 | Menghilangkan Buku")
+        print(" | 5 | Untuk Keluar")
+        print("")
+        garis()
+        print("")
+        try:
+            menu=int(input("Silahkan input Menu yang diinginkan (1-5): "))
+            print()
+            if(menu==1):
+                clear_screen()
+                deskripsi_stock()
+                display_buku()
+                keluar()
+            elif(menu==2):
+                clear_screen()
+                deskripsi_stock()
+                pinjamkan_buku()
+                keluar()
+            elif(menu==3):
+                clear_screen()
+                deskripsi_stock()
+                kembalikan_buku()
+                keluar()
+            elif(menu==4):
+                clear_screen()
+                deskripsi_stock()
+                buku_hilang()
+                keluar()                
+            elif(menu==5):
+                clear_screen()
+                garis()
+                print("PERPUSTAKAAN TEKNIK UNS".center(70))
+                print("JL. Ir. Sutami No. 36 Telp. 08123456789".center(70))
+                garis()
+                print("")
+                print("Terimakasih telah menggunakan sistem Perpustakaan Teknik UNS.".center(70))
+                print("")
+                garis()
+                print("")
+                input("Tekan tombol apa saja untuk keluar... : ")
+                exit()
+            else:
+                clear_screen()
+                print("Masukkan angka 1 hingga 5 untuk memilih Menu.")
+                kembali()
+        except ValueError:
+            clear_screen()
+            print("Masukkan sesuai perintah!")
+            kembali()
 
 
 def buku_perpus():
@@ -219,7 +219,7 @@ def pinjamkan_buku():
     with open(t,"w+") as f:
         f.write("\t\t\t  Perpustakaan Teknik UNS  \n")
         f.write("\t\t\tDipinjam oleh: "+ NamaDepan+" "+NamaBelakang+"\n")
-        f.write("\t\tTanggal: " + getDate()+" Waktu: "+ getTime()+"\n\n")
+        f.write("\t\tTanggal: " + tanggal()+" Waktu: "+ waktu()+"\n\n")
         f.write("No.\t\t\t\tJudul Buku\t\t\t   Penulis \n" )
 
     while success==False:
@@ -342,7 +342,7 @@ def kembalikan_buku():
     with open(b,"w+")as f:
         f.write("\t\t\t  Perpustakaan Teknik UNS  \n")
         f.write("\t\t\t   Dipinjam oleh: "+name+"\n")
-        f.write("\t\tTanggal: " + getDate()+" Waktu: "+ getTime()+"\n\n")
+        f.write("\t\tTanggal: " + tanggal()+" Waktu: "+ waktu()+"\n\n")
         f.write("No.\t\t\t\tJudul Buku\t\t\t   Total\n")
 
     total=0.0
@@ -366,7 +366,7 @@ def kembalikan_buku():
     print('Masukkan "Y" jika Ya dan "T" jika Tidak.')
     print("")
     stat=input()
-    if(stat.upper()=="Y"):
+    if(stat=="Y") or (stat=="y"):
         print("")
         print("Berapa hari keterlambatan? (Masukkan angka) :")
         print("")
@@ -375,8 +375,15 @@ def kembalikan_buku():
         with open(b,"a+")as f:
             f.write("\t\t\t\t\t\t\t  Denda: Rp"+ str(denda)+"\n")
         total=total+denda
-    elif(stat.upper()=="T"):
+    elif(stat=="T") or (stat=="t"):
         print("")
+    else:
+        print("Masukkan sesuai petunjuk!")
+        print("")
+        print("Apakah Anda melewati batas peminjaman?")
+        print('Masukkan "Y" jika Ya dan "T" jika Tidak.')
+        print("")
+        stat=input()
 
 
     clear_screen()
@@ -396,53 +403,6 @@ def kembalikan_buku():
             for i in range(8):
                 f.write(judul_buku[i]+","+penulis[i]+","+str(stock[i])+","+"Rp"+harga[i]+","+kategori[i]+"\n")
 
-
-def mengganti_buku():
-    name=input("Masukkan nama peminjam: ")
-    a="Pinjaman-"+name+".txt"
-    try:
-        with open(a,"r") as f:
-            lines=f.readlines()
-            lines=[a.strip("Rp") for a in lines]
-
-        with open(a,"r") as f:
-            data=f.read()
-            print(data)
-    except:
-        print("")
-        print("Nama yang dimasukkan tidak terdaftar sebagai peminjam.")
-        kembali()
-
-    b="Buku-Hilang-"+name+".txt"
-    with open(b,"w+")as f:
-        f.write("\t\t\t  Perpustakaan Teknik UNS  \n")
-        f.write("\t\t\t   Dipinjam oleh: "+name+"\n")
-        f.write("\t\tTanggal: " + getDate()+" Waktu: "+ getTime()+"\n\n")
-        f.write("No.\t\t\t\tJudul Buku\t\t\t   Total\n")
-    
-    for i in range(8):
-        if judul_buku[i] in data:
-            with open(b,"a") as f:
-                f.write(str(i+1)+"\t\t"+judul_buku[i]+"\t\tRp"+harga[i]+"\n")
-                stock[i]=int(stock[i])+1
-
-    with open(b,"r") as f:
-        datahilang=f.read()
-        print(datahilang)
-
-    with open("stock.txt","r+") as f:
-        for i in range(8):
-            f.write(judul_buku[i]+","+penulis[i]+","+str(stock[i])+","+"Rp"+harga[i]+","+kategori[i]+"\n")
-
-
-def tambah_buku():
-    with open("stock.txt", "a+") as f:
-        judul = input("judul = ")
-        pengarang = input("pengarang = ")
-        stok = input("stok = ")
-        harga = input("harga = Rp ")   
-        pembatas = ","
-        f.write('\n' + judul + pembatas + pengarang + pembatas + stok + pembatas + 'Rp' + harga + pembatas + kategori)
 
 def buku_hilang():
     print("==============================================")
@@ -484,7 +444,7 @@ def buku_hilang():
     with open(b,"w+")as f:
         f.write("\t\t\t  Perpustakaan Teknik UNS  \n")
         f.write("\t\t\t   Dipinjam oleh: "+name+"\n")
-        f.write("\t\tTanggal: " + getDate()+" Waktu: "+ getTime()+"\n\n")
+        f.write("\t\tTanggal: " + tanggal()+" Waktu: "+ waktu()+"\n\n")
         f.write("No.\t\t\tJudul Buku\t\t  Penulis\t\t  Kategori\n")
     
     count=0
@@ -498,15 +458,39 @@ def buku_hilang():
         datahilang=f.read()
         print(datahilang)
 
-    print("---------------------------------------------------------------------------")
+    print("-----------------------------------------------------------------------------------------")
+    print("")
 
-    with open("stock.txt", "a+") as f:
-        judul_buku[i]=input("judul = ")
-        penulis[i]=input("pengarang = ")
-        stock[i]=input("stok = ")
-        kategori[i]=input("kategori = ")
-        harga[i]=input("harga = Rp ")   
-        pembatas=","
-        f.write('\n' + judul_buku[i] + pembatas + penulis[i] + pembatas + stock[i] + pembatas + 'Rp' + harga[i] + pembatas + kategori[i])
+    count=0
+    for i in range(8):
+        if judul_buku[i] in data:
+            count=count+1
+            with open(b,"a") as f:
+                print('Apakah Anda menghilangkan buku dengan judul', '"'+judul_buku[i]+'"?')
+            isi=str(input("(Y/T) : "))
+            print("")
+            if (isi=="Y") or (isi=="y"):
+                stock[i]=int(stock[i])+1
+            elif(isi=="T") or (isi=="t"):
+                stock[i]=int(stock[i])+0
+
+    with open("stock.txt","r+") as f:
+        for i in range(8):
+            f.write(judul_buku[i]+","+penulis[i]+","+str(stock[i])+","+"Rp"+harga[i]+","+kategori[i]+"\n")
+
+    clear_screen()
+    print("|=====================================================================|")
+    print("|---------------------------------------------------------------------|")
+    print("|----------------TERIMA KASIH TELAH BERTANGGUNG JAWAB.----------------|")
+    print("|-------TOLONG SEGERA SERAHKAN BUKU TERSEBUT KEPADA PUSTAKAWAN.-------|")
+    print("|---------------------------------------------------------------------|")
+    print("|=====================================================================|")
+
+    keluar()
+
+    
+
+    
+
 
 display_menu()
