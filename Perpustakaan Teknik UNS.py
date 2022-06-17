@@ -17,22 +17,28 @@ def clear_screen():
 
 def keluar():
     print("")
-    keluar=input("Apakah Anda ingin keluar? (Y/T) : ")
-    if (keluar=="Y") or (keluar=="y"):
+    tawaran_keluar=input("Apakah Anda ingin keluar? (Y/T) : ")
+    if(tawaran_keluar=="Y") or (tawaran_keluar=="y"):
         clear_screen()
         garis()
         print("PERPUSTAKAAN TEKNIK UNS".center(70))
         print("JL. Ir. Sutami No. 36 Telp. 08123456789".center(70))
         garis()
         print("")
-        print("Terimakasih telah menggunakan sistem perpustakaan Teknik UNS.".center(70))
+        print("Terimakasih telah menggunakan sistem Perpustakaan Teknik UNS.".center(70))
+        print("")
+        garis()
         print("")
         input("Tekan tombol apa saja untuk keluar... : ")
         exit()
-    else:
+    elif(tawaran_keluar=="T") or (tawaran_keluar=="t"):
         print("")
         clear_screen()
         display_menu()
+    else:
+        clear_screen()
+        print("Masukkan sesuai petunjuk!")
+        keluar()
 
 
 def kembali():
@@ -82,8 +88,17 @@ def display_menu():
                 buku_hilang()
                 keluar()                
             elif(menu==5):
-                print("Terimakasih telah menggunakan sistem perpustakaan Teknik UNS.")
+                clear_screen()
+                garis()
+                print("PERPUSTAKAAN TEKNIK UNS".center(70))
+                print("JL. Ir. Sutami No. 36 Telp. 08123456789".center(70))
+                garis()
                 print("")
+                print("Terimakasih telah menggunakan sistem Perpustakaan Teknik UNS.".center(70))
+                print("")
+                garis()
+                print("")
+                input("Tekan tombol apa saja untuk keluar... : ")
                 exit()
             else:
                 clear_screen()
@@ -91,7 +106,7 @@ def display_menu():
                 kembali()
         except ValueError:
             clear_screen()
-            print("Masukkan sesuai perintah !")
+            print("Masukkan sesuai perintah!")
             kembali()
 
 
@@ -145,14 +160,24 @@ def buku_perpus():
 
 
 def display_buku():
-    print("======================================================================")
-    print("|---------------DAFTAR BUKU DI PERPUSTAKAAN TEKNIK UNS---------------|")
-    print("|-------------(JUDUL,PENULIS,STOK,BIAYA PINJAM,KATEGORI)-------------|")
-    print("======================================================================")
+    print("========================================================================================")
+    print("|--------------------------------------------------------------------------------------|")
+    print("|------------------------DAFTAR BUKU DI PERPUSTAKAAN TEKNIK UNS------------------------|")
+    print("|--------------------------------------------------------------------------------------|")
+    print("========================================================================================")
+    print("")
     print("")
     print("Berikut adalah daftar buku yang terdapat di Perpustakaan Teknik UNS :")
     print("")
     buku_perpus()
+    print("")
+    print("")
+    print("|==================================MOHON DIPERHATIKAN==================================|")
+    print("|----------------Anda dapat meminjam bermacam judul buku yang berbeda.-----------------|")
+    print("|--------------------Namun, Anda tidak dapat meminjam lebih dari-----------------------|")
+    print("|--------------------satu buku dengan judul yang sama dikarenakan----------------------|")
+    print("|--------------------------------terbatasnya stok buku.--------------------------------|")
+    print("|=====================================TERIMA KASIH=====================================|")
 
 
 def keterangan_biaya():
@@ -168,9 +193,9 @@ def keterangan_biaya():
 
 
 def pinjamkan_buku():
-    print("==============================")
-    print("|-----DATA DIRI PEMINJAM-----|")
-    print("==============================")
+    print("==============================================")
+    print("|-------------DATA DIRI PEMINJAM-------------|")
+    print("==============================================")
     print("")
     success=False
     while(True):
@@ -224,7 +249,7 @@ def pinjamkan_buku():
                     loop=True
                     count=1
                     while loop==True:
-                        choice=str(input('Apakah Anda berniat meminjam buku lagi?\nMasukkan "Y" jika ya dan "T" jika tidak.\n\n'))
+                        choice=str(input('Apakah Anda berniat meminjam buku lagi?\nMasukkan "Y" jika Ya dan "T" jika Tidak.\n\n'))
                         print("")
                         if(choice.upper()=="Y"):
                             clear_screen()
@@ -293,12 +318,10 @@ def pinjamkan_buku():
             keterangan_biaya()
     
 
-
-
 def kembalikan_buku():
-    print("==============================")
-    print("|-----DATA DIRI PEMINJAM-----|")
-    print("==============================")
+    print("==============================================")
+    print("|-------------DATA DIRI PEMINJAM-------------|")
+    print("==============================================")
     print("")
     name=input("Masukkan nama peminjam: ")
     clear_screen()
@@ -310,43 +333,64 @@ def kembalikan_buku():
     
         with open(a,"r") as f:
             data=f.read()
-            print(data)
     except:
-        print()
-        print("Nama yang diinput tidak terdaftar sebagai peminjam.")
+        print("")
+        print("Nama yang dimasukkan tidak terdaftar sebagai peminjam.")
         kembali()
 
     b="Pengembalian-"+name+".txt"
     with open(b,"w+")as f:
-        f.write("             Perpustakaan Teknik UNS \n")
-        f.write("                   Dikembalikan oleh: "+ name+"\n")
-        f.write("    Tanggal: " + getDate()+"    Waktu:"+ getTime()+"\n\n")
-        f.write("S.N.\t\tJudul Buku\t\tTotal\n")
+        f.write("\t\t\t  Perpustakaan Teknik UNS  \n")
+        f.write("\t\t\t   Dipinjam oleh: "+name+"\n")
+        f.write("\t\tTanggal: " + getDate()+" Waktu: "+ getTime()+"\n\n")
+        f.write("No.\t\t\t\tJudul Buku\t\t\t   Total\n")
 
     total=0.0
+    count=0
     for i in range(8):
         if judul_buku[i] in data:
+            count=count+1
             with open(b,"a") as f:
-                f.write(str(i+1)+"\t\t"+judul_buku[i]+"\t\tRp"+harga[i]+"\n")
+                f.write(str(count)+"\t\t"+judul_buku[i]+"\t\t Rp"+harga[i]+"\n")
                 stock[i]=int(stock[i])+1
             total+=float(harga[i])
-            
-    print("\t\t\t\t\t\t\t"+"Rp"+str(total))
-    print("Apakah buku melewati batas peminjaman?")
-    print("Masukkan Y jika ya dan T jika tidak.")
+
+    with open(b,"r") as f:
+        data=f.read()
+        print(data)        
+    print("\t\t\t\t\t\t\t\t "+"Rp"+str(total))
+    print("")
+    print("---------------------------------------------------------------------------")
+    print("")
+    print("Apakah Anda melewati batas peminjaman?")
+    print('Masukkan "Y" jika Ya dan "T" jika Tidak.')
     print("")
     stat=input()
     if(stat.upper()=="Y"):
-        print("Berapa hari keterlambatan?")
+        print("")
+        print("Berapa hari keterlambatan? (Masukkan angka) :")
+        print("")
         hari=int(input())
         denda=1000*hari
         with open(b,"a+")as f:
-            f.write("\t\t\t\t\tDenda: Rp"+ str(denda)+"\n")
+            f.write("\t\t\t\t\t\t\t  Denda: Rp"+ str(denda)+"\n")
         total=total+denda
-    
-    print("Total pembayaran: "+ "Rp"+str(total))
+    elif(stat.upper()=="T"):
+        print("")
+
+
+    clear_screen()
     with open(b,"a")as f:
-        f.write("\t\t\t\t\tTotal: Rp"+ str(total))
+        f.write("\t\t\t\t\t\t\t  Total: Rp"+ str(total))
+    with open(b,"r") as f:
+        data=f.read()
+        print(data)
+    print("")
+    print("---------------------------------------------------------------------------")
+    print("")
+    print("Maka total pembayaran yang harus Anda bayarkan adalah: "+ "Rp"+str(total))
+    print("")
+    print("---------------------------------------------------------------------------")
         
     with open("stock.txt","r+") as f:
             for i in range(8):
@@ -366,16 +410,16 @@ def mengganti_buku():
             print(data)
     except:
         print("")
-        print("Nama yang diinput tidak terdaftar sebagai peminjam.")
+        print("Nama yang dimasukkan tidak terdaftar sebagai peminjam.")
         kembali()
 
     b="Buku-Hilang-"+name+".txt"
     with open(b,"w+")as f:
-        f.write("             Perpustakaan Teknik UNS \n")
-        f.write("                   Dihilangkan oleh: "+ name+"\n")
-        f.write("    Tanggal: " + getDate()+"    Waktu:"+ getTime()+"\n\n")
-        f.write("S.N.\t\tJudul Buku\t\tTotal\n")
-
+        f.write("\t\t\t  Perpustakaan Teknik UNS  \n")
+        f.write("\t\t\t   Dipinjam oleh: "+name+"\n")
+        f.write("\t\tTanggal: " + getDate()+" Waktu: "+ getTime()+"\n\n")
+        f.write("No.\t\t\t\tJudul Buku\t\t\t   Total\n")
+    
     for i in range(8):
         if judul_buku[i] in data:
             with open(b,"a") as f:
@@ -391,18 +435,78 @@ def mengganti_buku():
             f.write(judul_buku[i]+","+penulis[i]+","+str(stock[i])+","+"Rp"+harga[i]+","+kategori[i]+"\n")
 
 
+def tambah_buku():
+    with open("stock.txt", "a+") as f:
+        judul = input("judul = ")
+        pengarang = input("pengarang = ")
+        stok = input("stok = ")
+        harga = input("harga = Rp ")   
+        pembatas = ","
+        f.write('\n' + judul + pembatas + pengarang + pembatas + stok + pembatas + 'Rp' + harga + pembatas + kategori)
+
 def buku_hilang():
+    print("==============================================")
+    print("|-------------DATA DIRI PEMINJAM-------------|")
+    print("==============================================")
+    print("")
+    name=input("Masukkan nama peminjam: ")
+    clear_screen()
+    a="Pinjaman-"+name+".txt"
+    try:
+        with open(a,"r") as f:
+            lines=f.readlines()
+            lines=[a.strip("Rp") for a in lines]
+    
+        with open(a,"r") as f:
+            data=f.read()
+    except:
+        print("Nama yang dimasukkan tidak terdaftar sebagai peminjam.")
+        kembali()
     print("================================================")    
     print("|----SESUAI DENGAN KETENTUAN YANG BERLAKU,-----|")
     print("|-------MAKA AKAN DIKENAKAN DENDA BERUPA-------|")
-    print("|==============================================|")
     print("|----MENGGANTI BUKU DENGAN JUDUL DAN JUMLAH----|")
     print("|-------------------YANG SAMA------------------|")
+    print("|==============================================|")
+    print("|---------------CATATAN  PENTING---------------|")
+    print("|------DIMOHON UNTUK MENGISI DATA DENGAN-------|")
+    print("|----------JUJUR DAN SESUAI PERINTAH-----------|")
+    print("|------LALU BERIKAN BUKU PADA PUSTAKAWAN-------|")
     print("================================================")
     print("")
-    menuhilang=int(input("Pilih Cara Pengembalian! (1/2) : "))
-    if menuhilang == 1:
-        mengganti_buku()
+    input("Tekan tombol apa saja untuk melanjutkan... : ")
+    clear_screen()
+    print("Berikut adalah kategori buku: ")
+    keterangan_biaya()
+    print("Berikut adalah buku yang Anda pinjam: ")
+    print("")
+    b="Buku-Hilang-"+name+".txt"
+    with open(b,"w+")as f:
+        f.write("\t\t\t  Perpustakaan Teknik UNS  \n")
+        f.write("\t\t\t   Dipinjam oleh: "+name+"\n")
+        f.write("\t\tTanggal: " + getDate()+" Waktu: "+ getTime()+"\n\n")
+        f.write("No.\t\t\tJudul Buku\t\t  Penulis\t\t  Kategori\n")
+    
+    count=0
+    for i in range(8):
+        if judul_buku[i] in data:
+            count=count+1
+            with open(b,"a") as f:
+                f.write(str(count)+"\t"+judul_buku[i]+"\t"+penulis[i]+"\t\t"+kategori[i]+"\n")
 
+    with open(b,"r") as f:
+        datahilang=f.read()
+        print(datahilang)
+
+    print("---------------------------------------------------------------------------")
+
+    with open("stock.txt", "a+") as f:
+        judul_buku[i]=input("judul = ")
+        penulis[i]=input("pengarang = ")
+        stock[i]=input("stok = ")
+        kategori[i]=input("kategori = ")
+        harga[i]=input("harga = Rp ")   
+        pembatas=","
+        f.write('\n' + judul_buku[i] + pembatas + penulis[i] + pembatas + stock[i] + pembatas + 'Rp' + harga[i] + pembatas + kategori[i])
 
 display_menu()
