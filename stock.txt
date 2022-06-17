@@ -1,10 +1,8 @@
-Contoh Buku 1,Penulis 1,9,Rp3000
-Contoh Buku 2,Penulis 2,9,Rp3000
-Contoh Buku 3,Penulis 3,9,Rp3000
-Contoh Buku 4,Penulis 4,10,Rp3000
-Contoh Buku 5,Penulis 5,10,Rp3000
-Contoh Buku 6,Penulis 6,10,Rp3000
-Contoh Buku 7,Penulis 7,10,Rp3000
-Contoh Buku 8,Penulis 8,10,Rp3000
-
-
+Asal Mula Terjadinya Alam Semesta Kita,Neil Tyson,5,Rp15000,Umum
+Oxford Advanced Learner's Dictionary,Albert Hornby,5,Rp15000,Umum
+Physics for Scientists and Engineers,Serway Jewett,5,Rp10000,Sains dan Matematika
+Chemistry Molecular Nature of Matter,Jespersen Brady,5,Rp10000,Sains dan Matematika
+Fundamental of Information Technology,Matthew Murugs,5,Rp5000,Teknologi
+Teknologi Nanomaterial Hibrida Logam,Prasdiantika,5,Rp5000,Teknologi
+Seri Tokoh Dunia tentang Marie Curie,Wan Ie So,5,Rp3000,Lainnya
+The Case Book about Sherlock Holmes,Sir Arthur,5,Rp3000,Lainnya
