@@ -489,8 +489,4 @@ def buku_hilang():
     keluar()
 
     
-
-    
-
-
 display_menu()
